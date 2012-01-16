@@ -18,7 +18,7 @@
         var defaults = {
             limit: 5,                       //number of tweets to show
             username: 'philipbeel',         //@username tweets to display
-            time: false,                    //display date
+            date: true,                    //display date
             replies: false,                 //filter out @replys
             position: 'append',             //append position
             onComplete: function($ul) {}
@@ -48,16 +48,8 @@
                     $tweetList.append('<li class="tweet_content_' + i + '"><p class="tweet_link_' + i + '">' + tweet.text.replace(/#(.*?)(\s|$)/g, '<span class="hash">#$1 </span>').replace(/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig, '<a href="$&">$&</a> ').replace(/@(.*?)(\s|\(|\)|$)/g, '<a href="http://twitter.com/$1">@$1 </a>$2') + '</p></li>');
                     
                     //display the time of tweet if required
-                    if (defaults.time == true) {
-                        for(var iterate=0; iterate<=12; iterate++) {
-                            if(shortMonths[iterate] == tweet.created_at.substr(4, 3)) {
-                                tweetMonth = iterate + 1;
-                                if(tweetMonth < 10) {
-                                    tweetMonth = '0' + tweetMonth;
-                                }
-                            }
-                        }
-                        $('.tweet_link_' + i).prepend('<p><small> ' + tweet.created_at.substr(8, 2) + '/' + tweetMonth + '/' + tweet.created_at.substr(26,4) + ', ' + tweet.created_at.substr(11,5) + '</small></p>');
+                    if (defaults.date == true) {
+                        $('.tweet_link_' + i).prepend('<p><small> ' + tweet.created_at.substr(4, 3) + ' ' + tweet.created_at.substr(8, 2) + ' ' + tweet.created_at.substr(26,4) + '</small></p>');
                     }
                 });
                 //close the unordered list
